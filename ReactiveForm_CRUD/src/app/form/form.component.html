@@ -1,5 +1,5 @@
 <div class="container col-md-9">
-    <form class="p-5" [formGroup]="myform">
+    <form class="p-5" [formGroup]="myForm">
         <h1 class="text-success">Reactive Forms </h1>
 
         <div class="form-group col-md-6">
@@ -15,21 +15,26 @@
         <div class="form-group col-md-6">
             <label>Gender:</label>
             <div class="form-check form-check-inline">
-                <input  class="form-check-input" type="radio" name="gender" formControlName="gender">
+                <input class="form-check-input" type="radio" name="gender" formControlName="gender">
                 <label class="form-check-label">Male</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" >
+                <input class="form-check-input" type="radio" name="gender">
                 <label class="form-check-label">Female</label>
             </div>
         </div><br>
 
-        <div class="form-group col-md-6"> 
+        <!-- Hobbie  -->
+        <div formArrayName="hobbie">
             <label>Hobbie:</label>
-             <div *ngFor="let item of checkboxJson;let i=index">
-            <input type="checkbox" formControlName="item.checked" name="checkbox{{i}}">{{item.label}}
-             </div>    
-      </div><br>
+            <!-- <label>{{checkboxJson | json}}</label> -->
+            <div class="form-check" *ngFor="let item of checkboxJson;let i=index" >
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="checkbox{{i}}"  >{{item.label}}
+                </label>
+            </div>
+        </div>
+        <br>
 
         <div class="form-group col-md-6">
             <label>Cars:</label>
@@ -44,17 +49,28 @@
         <div class="form-group col-md-6">
             <div>
                 <label class="form-label">Date: </label>
-                <input class="form-control" type="date" name="date"  formControlName="date"/>
+                <input class="form-control" type="date" name="date" formControlName="date" />
             </div>
         </div><br>
 
-    
-        <br>
+        <div formArrayName="subject">
+            <button type="button" class="btn btn-primary" (click)="addSubject()">Add Subject</button>
+        <div *ngFor="let alias of subject.controls; let i=index">
+            <!-- The repeated alias template -->
+            <label for="subject-{{ i }}">SubjectName:</label>
+            <input id="subject-{{ i }}" type="text" [formControlName]="i">
+            <!-- The repeated alias template -->
+            <label for="subject-{{ i }}">Marks:</label>
+            <input id="subject-{{ i }}" type="number" [formControlName]="i">
+            <button class="btn btn-danger" (click)="removeSubject(i)">Remove</button><br>
+        </div>
+        </div><br>
 
-    
 
-        <button type="button" class="btn btn-danger">Save</button>
-        <button type="button" class="btn btn-warning">Show data</button>
-    </form>
+
+
+<button type="button" class="btn btn-danger" (click)="save()">Save</button>&nbsp;
+<button type="button" class="btn btn-warning" (click)="showdata()">Show data</button>
+</form>
 
 </div>
