@@ -15,6 +15,9 @@ export class EmployeeService {
 
   constructor(private httpClient :HttpClient) { }
 
+  getEmployeeList(): Observable<Student[]>{
+    return this.httpClient.get<Student[]>(`${this.baseURL}`);
+  }
   
   // getEmployeeListPage(request): Observable<Student[]>{
      

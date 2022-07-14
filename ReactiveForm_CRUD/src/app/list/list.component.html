@@ -1,1 +1,31 @@
-<p>list works!</p>
+<br>
+<!-- <button type="button" class="btn btn-primary" (click)="updateEmployee(null)">Add</button> -->
+<table class="table" border="3">
+    <tr>
+        <th>Id </th>
+        <th>name</th>
+        <th>add</th>
+        <th>Gender</th>
+        <th>Date</th>
+        <th>Hobbie</th>
+        <th>cars</th>
+        <th colspan="4">Action</th>
+    </tr>
+
+    <tbody>
+        <tr *ngFor="let item of data,let i=index">
+            <td>{{item.id}} </td>
+            <td>{{item.name}}</td>
+            <td>{{item.address}}</td>
+            <td>{{item.gender}}</td>
+            <td>{{item.date}}</td>
+          
+            <td>{{item.hobbie}}</td>
+            <td>{{item.cars}}</td>
+            <!-- <td><button mat-raised-button  color="warn" (click)="view(item.subject,item.name)">View Subject</button>-->
+            <td><button type="button" class="btn btn-primary"  color="accent"  (click)="updateEmployee(item.id)">Edit</button>
+            <button type="button" class="btn btn-danger" color="primary" (click)="deleteEmployee(item.id)">Delete</button> </td>
+        </tr>
+    </tbody>
+</table>
+
