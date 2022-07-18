@@ -44,7 +44,7 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
 
     this.myForm = this.fb.group({
-      name: [''],
+      name: ['',[Validators.required,Validators.minLength(3)]],
       address: [''],
       subject: this.fb.array([]),
       gender: [''],
@@ -53,6 +53,10 @@ export class FormComponent implements OnInit {
       hobbie: [''],
   
     })
+
+
+   
+
 
     //edit GEttId
     this.id = this.route.snapshot.queryParams['id'];
@@ -88,7 +92,7 @@ export class FormComponent implements OnInit {
         //   name: new FormControl(response['name']),
         //   address: new FormControl(response['address']),
         //   gender: new FormControl(response['gender']),
-        //   cars: new FormControl(response['cars']),
+      //   cars: new FormControl(response['cars']),
         //   date: new FormControl(response['date']),
         //   hobbie: new FormControl([''])
         // })

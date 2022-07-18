@@ -4,7 +4,13 @@
 
         <div class="form-group col-md-6">
             <label>Name</label>
-            <input type="text" class="form-control" name="name" formControlName="name">
+            <input type="text" class="form-control" id="name" name="name" formControlName="name" required>
+            
+            <!-- Validation  -->
+            <ng-container *ngIf="myForm.controls['name'].errors">
+                <span class="text-danger" *ngIf="myForm.controls['name'].errors['required']">Required </span>
+                <span class="text-danger" *ngIf="myForm.controls['name'].errors['minlength']"> Minlength is 4  </span>
+            </ng-container><br>
         </div>
 
         <div class="form-group col-md-6">
@@ -17,18 +23,18 @@
                 <label class="form-label">Select Gender : </label>
                 <input type="radio" name="gender" value="male" formControlName="gender">Male
                 <input type="radio" name="gender" value="female" formControlName="gender">Female
-    
-              </div>
+
+            </div>
         </div><br>
 
         <!-- Hobbie  -->
-        <div >
+        <div>
             <label>Hobbie:</label>
             <!-- <label>{{checkboxJson | json}}</label> -->
-            <div class="form-check"  *ngFor="let item of checkboxJson;let i=index"  >
-                <label class="form-check-label" >
-                    <input type="checkbox" class="form-check-input" [checked]="item.checked"
-                        [value]="item.label" (change)="onCheckbox($event)">{{ item.label }}
+            <div class="form-check" *ngFor="let item of checkboxJson;let i=index">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" [checked]="item.checked" [value]="item.label"
+                        (change)="onCheckbox($event)">{{ item.label }}
                 </label>
             </div>
         </div>
@@ -53,22 +59,22 @@
 
         <div formArrayName="subject">
             <button type="button" class="btn btn-primary" (click)="addSubject()">Add Subject</button>
-        <div *ngFor="let alias of subjectArr.controls; let i=index">
-            <!-- The repeated alias template -->
-            <label>SubjectName:</label>
-            <input  type="text" formControlName="subjectname">
-            <!-- The repeated alias template -->
-            <label>Marks:</label>
-            <input  type="number" formControlName="marks">
-            <button class="btn btn-danger" (click)="removeSubject(i)">Remove</button><br>
-        </div>
+            <div *ngFor="let alias of subjectArr.controls; let i=index" [formGroupName]="i">
+                <!-- The repeated alias template -->
+                <label>SubjectName:</label>
+                <input type="text" formControlName="subjectname">
+                <!-- The repeated alias template -->
+                <label>Marks:</label>
+                <input type="number" formControlName="marks">
+                <button class="btn btn-danger" (click)="removeSubject(i)">Remove</button><br>
+            </div>
         </div><br>
 
 
 
 
-<button type="button" class="btn btn-danger" (click)="save()">Save</button>&nbsp;
-<button type="button" class="btn btn-warning" (click)="showdata()">Show data</button>
-</form>
+        <button type="button" class="btn btn-danger" (click)="save()">Save</button>&nbsp;
+        <button type="button" class="btn btn-warning" (click)="showdata()">Show data</button>
+    </form>
 
 </div>
