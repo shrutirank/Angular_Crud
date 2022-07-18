@@ -50,39 +50,63 @@ export class FormComponent implements OnInit {
       gender: [''],
       cars: [''],
       date: [''],
-      hobbie: this.fb.array([]),
+      hobbie: [''],
     })
 
-    //edit 
+    //edit GEttId
     this.id = this.route.snapshot.queryParams['id'];
     if (this.id) {
+      this.getEmployeeById(this.id);
+    }
+  }
+  //edit
+  getEmployeeById(id: number) {
+    if (this.id) {
       this.employeeService.getEmployeeBYId(this.id).subscribe((response: any) => {
-        this.myForm = new FormGroup({
-          name: new FormControl(response['name']),
-          address: new FormControl(response['address']),
-          gender: new FormControl(response['gender']),
-          cars: new FormControl(response['cars']),
-          date: new FormControl(response['date']),
+        if (response.hobbie) {
+          this.hobbies = response.hobbie.split(',');
+          for (let i = 0; i < this.hobbies.length; i++) {
+            const index = this.checkboxJson.findIndex((p: any) => p.label == this.hobbies[i]);
+            if (index != -1) {
+              this.checkboxJson[index].checked = true;
+            }
+          }
+        }
+        // this.myForm = new FormGroup({
+        //   name: new FormControl(response['name']),
+        //   address: new FormControl(response['address']),
+        //   gender: new FormControl(response['gender']),
+        //   cars: new FormControl(response['cars']),
+        //   date: new FormControl(response['date']),
+        //   hobbie: new FormControl([''])
+        // })
 
-        })
-        console.log(response);
+        //edit hobbies 
+        response.hobbies = "";
+        this.myForm.patchValue(response);
+        this.myForm.value.hobbie = this.hobbies.join();
+        // this.hobbies = []
 
         this.data = response;
-      });
+        console.log(this.myForm.value);
+
+      })
     }
   }
 
 
+  hobbies: string[] = []
   onCheckbox(e: any) {
-    const hobbie: FormArray = this.myForm.get('hobbie') as FormArray;
+
+    // const hobbie: FormArray = this.myForm.get('hobbie') as FormArray;
 
     if (e.target.checked) {
-      hobbie.push(new FormControl(e.target.value));
+      console.log(e, 'e');
+      this.hobbies.push(e.target.value);
     } else {
-      const index = hobbie.controls.findIndex(x => x.value === e.target.value);
-
-      hobbie.removeAt(index);
+      this.hobbies = this.hobbies.filter(p => p !== e.target.value)
     }
+    console.log(this.hobbies)
   }
 
   saveEmployee() {
@@ -91,6 +115,9 @@ export class FormComponent implements OnInit {
     this.data.gender = this.myForm.value.gender;
     this.data.cars = this.myForm.value.cars;
     this.data.date = this.myForm.value.date;
+    this.data.subject = this.myForm.value.subject;
+    this.myForm.value.hobbie = this.hobbies.join();
+    console.log(this.myForm.value.hobbie, 'array')
     this.data.hobbie = this.myForm.value.hobbie;
 
     //edit 

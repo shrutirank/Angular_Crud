@@ -11,6 +11,6 @@ export class Student{
  
 }
 export class Subject{
-    // subjectname:string
-    // marks:string
+     subjectname!:string
+    marks!:string
 }

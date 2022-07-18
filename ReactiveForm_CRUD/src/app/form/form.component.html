@@ -22,12 +22,13 @@
         </div><br>
 
         <!-- Hobbie  -->
-        <div formArrayName="hobbie">
+        <div >
             <label>Hobbie:</label>
             <!-- <label>{{checkboxJson | json}}</label> -->
-            <div class="form-check" *ngFor="let item of checkboxJson;let i=index" >
-                <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" name="checkbox{{i}}"(change)="onCheckbox($event)" >{{item.label}}
+            <div class="form-check"  *ngFor="let item of checkboxJson;let i=index"  >
+                <label class="form-check-label" >
+                    <input type="checkbox" class="form-check-input" [checked]="item.checked"
+                        [value]="item.label" (change)="onCheckbox($event)">{{ item.label }}
                 </label>
             </div>
         </div>
