@@ -51,6 +51,7 @@ export class FormComponent implements OnInit {
       cars: [''],
       date: [''],
       hobbie: [''],
+  
     })
 
     //edit GEttId
@@ -59,6 +60,17 @@ export class FormComponent implements OnInit {
       this.getEmployeeById(this.id);
     }
   }
+
+  //subject save
+  initsubjectsrows(){
+    return this.fb.group({
+      subjectId:[''],
+      subjectname:[''],
+      marks:['']
+    })
+  }
+
+  
   //edit
   getEmployeeById(id: number) {
     if (this.id) {
@@ -83,9 +95,13 @@ export class FormComponent implements OnInit {
 
         //edit hobbies 
         response.hobbies = "";
+
+        //all data edit
         this.myForm.patchValue(response);
+
+        //hobbie edit
         this.myForm.value.hobbie = this.hobbies.join();
-        // this.hobbies = []
+
 
         this.data = response;
         console.log(this.myForm.value);
@@ -97,9 +113,7 @@ export class FormComponent implements OnInit {
 
   hobbies: string[] = []
   onCheckbox(e: any) {
-
     // const hobbie: FormArray = this.myForm.get('hobbie') as FormArray;
-
     if (e.target.checked) {
       console.log(e, 'e');
       this.hobbies.push(e.target.value);
@@ -110,26 +124,26 @@ export class FormComponent implements OnInit {
   }
 
   saveEmployee() {
-    this.data.name = this.myForm.value.name;
-    this.data.address = this.myForm.value.address;
-    this.data.gender = this.myForm.value.gender;
-    this.data.cars = this.myForm.value.cars;
-    this.data.date = this.myForm.value.date;
-    this.data.subject = this.myForm.value.subject;
+    // this.data.name = this.myForm.value.name;
+    // this.data.address = this.myForm.value.address;
+    // this.data.gender = this.myForm.value.gender;
+    // this.data.cars = this.myForm.value.cars;
+    // this.data.date = this.myForm.value.date;
+    // this.data.subject = this.myForm.value.subject;
     this.myForm.value.hobbie = this.hobbies.join();
-    console.log(this.myForm.value.hobbie, 'array')
-    this.data.hobbie = this.myForm.value.hobbie;
+    // console.log(this.myForm.value.hobbie, 'array')
+    // this.data.hobbie = this.myForm.value.hobbie;
 
     //edit 
     if (this.id) {
-      this.employeeService.updateEmployee(this.id, this.data).subscribe(data1 => {
+      this.employeeService.updateEmployee(this.id, this.myForm.value).subscribe(data1 => {
         console.log(data1)
         this.showdata();
       }, error => console.log(error));
 
     }
     else {
-      this.employeeService.createEmployee(this.data).subscribe(data1 => {
+      this.employeeService.createEmployee(this.myForm.value).subscribe(data1 => {
         console.log(data1)
         this.showdata();
       }, error => console.log(error));
@@ -143,16 +157,16 @@ export class FormComponent implements OnInit {
     this.saveEmployee();
   }
 
-  get subject() {
+  get subjectArr() {
     return this.myForm.get('subject') as FormArray;
   }
 
   addSubject() {
-    this.subject.push(this.fb.control(''));
+    this.subjectArr.push(this.initsubjectsrows());
   }
 
   removeSubject(i: number) {
-    this.subject.removeAt(i);
+    this.subjectArr.removeAt(i);
   }
 
 

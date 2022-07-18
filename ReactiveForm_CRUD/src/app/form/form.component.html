@@ -53,13 +53,13 @@
 
         <div formArrayName="subject">
             <button type="button" class="btn btn-primary" (click)="addSubject()">Add Subject</button>
-        <div *ngFor="let alias of subject.controls; let i=index">
+        <div *ngFor="let alias of subjectArr.controls; let i=index">
             <!-- The repeated alias template -->
-            <label for="subject-{{ i }}">SubjectName:</label>
-            <input id="subject-{{ i }}" type="text" [formControlName]="i">
+            <label>SubjectName:</label>
+            <input  type="text" formControlName="subjectname">
             <!-- The repeated alias template -->
-            <label for="subject-{{ i }}">Marks:</label>
-            <input id="subject-{{ i }}" type="number" [formControlName]="i">
+            <label>Marks:</label>
+            <input  type="number" formControlName="marks">
             <button class="btn btn-danger" (click)="removeSubject(i)">Remove</button><br>
         </div>
         </div><br>

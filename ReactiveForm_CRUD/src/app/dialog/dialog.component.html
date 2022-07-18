@@ -1,1 +1,11 @@
-<p>dialog works!</p>
+<ng-container>
+    <h2 matDialogTitle>Student Marks</h2>
+    <b>Name:</b>{{data.uname}}
+    <mat-dialog-content *ngFor="let item of data">
+        <p *ngIf="!myprop"><b>Subject:</b>{{item.subjectname}},<b>Marks:</b> {{item.marks}}
+            <!-- <button mat-stroked-button color="warn" (click)="deleteSub(item.subjectId)">Remove subject</button><br> -->
+        </p>
+        <p *ngIf="myprop">Nothing</p>
+
+    </mat-dialog-content>
+</ng-container>
