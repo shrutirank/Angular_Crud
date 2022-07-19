@@ -8,7 +8,7 @@
             
             <!-- Validation  -->
             <ng-container *ngIf="myForm.controls['name'].errors">
-                <span class="text-danger" *ngIf="myForm.controls['name'].errors['required']">Required </span>
+                <span class="text-danger" *ngIf="myForm.controls['name'].touched">Required </span>
                 <span class="text-danger" *ngIf="myForm.controls['name'].errors['minlength']"> Minlength is 4  </span>
             </ng-container><br>
         </div>
@@ -16,6 +16,11 @@
         <div class="form-group col-md-6">
             <label>Address</label>
             <textarea type="address" class="form-control" name="address" formControlName="address"></textarea>
+             <!-- Validation  -->
+             <ng-container *ngIf="myForm.controls['address'].errors">
+                <span class="text-danger" *ngIf="myForm.controls['address'].touched">Required </span>
+                <span class="text-danger" *ngIf="myForm.controls['address'].errors['minlength']"> Minlength is 5  </span>
+            </ng-container><br>
         </div><br>
 
         <div class="form-group col-md-6">
